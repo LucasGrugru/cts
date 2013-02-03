@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Simulateur {
 
-	List<Processeur> porecesseurs;
+	List<Processeur> processeurs;
 	List<Tache> taches;
 	
 	public Simulateur() {
