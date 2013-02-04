@@ -7,10 +7,16 @@ public class Simulateur {
 	List<Processeur> processeurs;
 	List<Tache> taches;
 	
-	public Simulateur() {
-		
-		
+	public Simulateur(int nbProcesseur, List<Tache> taches) {
+		initialiser(nbProcesseur);
+		this.taches = taches;
 	}
+	
+	private void initialiser(int nbProcesseur) {
+		for(int i=0; i<nbProcesseur; i++)
+			processeurs.add(new Processeur());
+	}
+	
 	
 	public void simuler() {
 		//P la liste des processeurs
