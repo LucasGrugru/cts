@@ -1,5 +1,6 @@
 package cts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Simulateur {
@@ -19,13 +20,23 @@ public class Simulateur {
 	}
 	
 	
-	public void simuler() {
+	public void simulerCTS() {
+		List<Tache> alpha = this.graphe.getEntrees();
+		List<Tache> S = new ArrayList<Tache>(); // liste des taches ordonnancées
+		int U = this.graphe.getTaches().size();
+		Tache t;
+		while(U != 0) {
+			t = this.graphe.getFirstFreeCritical();
+			if(t == null)
+				System.exit(-1);
+			
+		}
 		//P la liste des processeurs
 		//S = {};U = V ; (*marquer toutes les taches comme non ordonnancees*)
 		//Calculer L+(t) pour chaque tache t et mettre L-(t) a 0 pour chaque tache d'entree t;
 		//Mettre les taches d'entree dans alpha;
 		//while(U!=0) {
-			//t  H(alpha) ; (*selectionner une tache libre critique de alpha *)
+			//t = H(alpha) ; (*selectionner une tache libre critique de alpha *)
 			//if L-(t) >= E(P*) then
 				//Ordonnancer la tache t sur son processeur contraint P*
 			//else

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Graphe {
 	
-	List<Tache> taches;
+	private List<Tache> taches;
 	
 	public Graphe(List<Tache> taches) {
 		this.taches = taches;
@@ -27,5 +27,17 @@ public class Graphe {
 			if(t.getTopLevel() == 0)
 				entrees.add(t);
 		return entrees;
+	}
+
+	public List<Tache> getTaches() {
+		return taches;
+	}
+
+	public Tache getFirstFreeCritical() {
+		for(Tache t : taches) {
+			if(t.etat == Etat.LIBRE)
+				return t;
+		}
+		return null;
 	}
 }
