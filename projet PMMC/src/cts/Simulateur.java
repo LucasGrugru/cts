@@ -4,12 +4,13 @@ import java.util.List;
 
 public class Simulateur {
 
-	List<Processeur> processeurs;
-	List<Tache> taches;
+	private List<Processeur> processeurs;
+	private Graphe graphe;
+
 	
-	public Simulateur(int nbProcesseur, List<Tache> taches) {
+	public Simulateur(int nbProcesseur, Graphe graphe) {
 		initialiser(nbProcesseur);
-		this.taches = taches;
+		this.graphe = graphe;
 	}
 	
 	private void initialiser(int nbProcesseur) {
