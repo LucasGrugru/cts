@@ -14,7 +14,7 @@ public class Graphe {
 	public List<Tache> getPredecesseurs(Tache tacheSuivante) {
 		List<Tache> listPredecesseurs = new ArrayList<Tache>();
 		for(Tache t : this.taches) {
-			if(t.getsuccesseurs().contains(tacheSuivante)) {
+			if(t.getSuccesseurs().contains(tacheSuivante)) {
 				listPredecesseurs.add(t);
 			}
 		}

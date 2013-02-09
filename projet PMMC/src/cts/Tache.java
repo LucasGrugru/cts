@@ -1,22 +1,27 @@
 package cts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Tache {
 
 	private int temps;
-	private List<Tache> successeurs;
+	private List<Arete> successeurs;
 	private Graphe graphe;
 	public Etat etat;
 	
-	public Tache(int temps, List<Tache> successeurs) {
+	public Tache(int temps, List<Arete> successeurs) {
 		this.temps = temps;
 		this.successeurs = successeurs;
 		etat = Etat.LIBRE;
 	}
 	
-	public List<Tache> getsuccesseurs() {
-		return this.successeurs;
+	public List<Tache> getSuccesseurs() {
+		List<Tache> taches = new ArrayList<Tache>();
+		for(Arete a : successeurs) {
+			taches.add(a.getSuccesseur());
+		}
+		return taches;
 	}
 	
 	public int getTopLevel() {
@@ -26,7 +31,7 @@ public class Tache {
 			int max = 0;
 			int temp = 0;
 			for(Tache t : this.graphe.getPredecesseurs(this)) {
-				temp = t.getTopLevel() + t.getTemps() + this.comm(t);
+				temp = t.getTopLevel() + t.getTemps() + this.getCommunication(t);
 				if(temp > max) {
 					max = temp;
 				}
@@ -36,13 +41,13 @@ public class Tache {
 	}
 	
 	public int getBottomLevel() {
-		if(this.successeurs.isEmpty()) {
+		if(this.getSuccesseurs().isEmpty()) {
 			return 0;
 		} else {
 			int max = 0;
 			int temp = 0;
-			for(Tache t : this.successeurs) {
-				temp = t.getBottomLevel() + t.getTemps() + this.comm(t);
+			for(Tache t : this.getSuccesseurs()) {
+				temp = t.getBottomLevel() + t.getTemps() + this.getCommunication(t);
 				if(temp > max) {
 					max = temp;
 				}
@@ -59,8 +64,10 @@ public class Tache {
 		return this.temps;
 	}
 
-	private int comm(Tache t) {
-		return 1;
+	private int getCommunication(Tache t) {
+		return this.successeurs.get( 
+					this.successeurs.indexOf(t) 
+				).getTime();
 	}
 	
 	public void run() throws InterruptedException {
