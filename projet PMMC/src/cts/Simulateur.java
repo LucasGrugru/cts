@@ -29,6 +29,9 @@ public class Simulateur {
 			t = this.graphe.getFirstFreeCritical();
 			if(t == null)
 				System.exit(-1);
+			if(t.getTopLevel() >= getProcesseurMax(t.getPredecesseurs()).getDisponibilite()) { //date de disponibilité du processeur des predecesseur de t
+				
+			}
 			
 		}
 		//P la liste des processeurs
@@ -50,4 +53,8 @@ public class Simulateur {
 		//}
 	}
 
+	private Processeur getProcesseurMax(List<Tache> predecesseurs) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

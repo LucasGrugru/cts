@@ -73,5 +73,10 @@ public class Tache {
 	public void run() throws InterruptedException {
 		Thread.sleep(temps);
 	}
+
+	public List<Tache> getPredecesseurs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
