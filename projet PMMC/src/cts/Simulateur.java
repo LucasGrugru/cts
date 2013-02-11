@@ -54,7 +54,14 @@ public class Simulateur {
 	}
 
 	private Processeur getProcesseurMax(List<Tache> predecesseurs) {
-		// TODO Auto-generated method stub
+		List<Processeur> temp = new ArrayList<Processeur>();
+		for(Processeur p : processeurs) {
+			for(Tache t : predecesseurs) {
+				if(p.inList(t)) {
+					
+				}
+			}
+		}
 		return null;
 	}
 }

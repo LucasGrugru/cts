@@ -7,5 +7,11 @@ public class Processeur {
 		return 0;
 	}
 
+	public boolean inList(Tache t) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+
 	
 }
