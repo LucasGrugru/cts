@@ -9,11 +9,13 @@ public class Tache {
 	private List<Arete> successeurs;
 	private Graphe graphe;
 	public Etat etat;
+	public int debut;
 	
 	public Tache(int temps, List<Arete> successeurs) {
 		this.temps = temps;
 		this.successeurs = successeurs;
 		etat = Etat.LIBRE;
+		this.debut = -1;
 	}
 	
 	public List<Tache> getSuccesseurs() {
@@ -60,7 +62,7 @@ public class Tache {
 		return getBottomLevel() + getTopLevel();
 	}
 	
-	private int getTemps() {
+	public int getTemps() {
 		return this.temps;
 	}
 
@@ -69,14 +71,9 @@ public class Tache {
 					this.successeurs.indexOf(t) 
 				).getTime();
 	}
-	
-	public void run() throws InterruptedException {
-		Thread.sleep(temps);
-	}
 
-	public List<Tache> getPredecesseurs() {
-		// TODO Auto-generated method stub
-		return null;
+	public void begin(int i) {
+		this.debut = i;
 	}
 	
 }
