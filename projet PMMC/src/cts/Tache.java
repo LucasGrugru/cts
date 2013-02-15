@@ -18,6 +18,10 @@ public class Tache {
 		this.debut = -1;
 	}
 	
+	public void addArete(Arete a) {
+		successeurs.add(a);
+	}
+	
 	public List<Tache> getSuccesseurs() {
 		List<Tache> taches = new ArrayList<Tache>();
 		for(Arete a : successeurs) {

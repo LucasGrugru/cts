@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Simulateur {
 
-	private List<Processeur> processeurs;
+	private List<Processeur> processeurs; //20 processeurs
 	private Graphe graphe;
 
 	
@@ -23,7 +23,7 @@ public class Simulateur {
 	
 	public void simulerCTS() {
 		List<Tache> alpha = this.graphe.getEntrees();
-		List<Tache> S = new ArrayList<Tache>(); // liste des taches ordonnancées
+		List<Tache> S = new ArrayList<Tache>(); // liste des taches ordonnancï¿½es
 		int U = this.graphe.getTaches().size();
 		Tache t;
 		Processeur p;
@@ -34,10 +34,10 @@ public class Simulateur {
 			
 			p = getProcesseurMax(graphe.getPredecesseurs(t));
 			
-			if(t.getTopLevel() >= p.getDisponibilite()) { //date de disponibilité du processeur des predecesseurs de t
+			if(t.getTopLevel() >= p.getDisponibilite()) { //date de disponibilitï¿½ du processeur des predecesseurs de t
 				p.ordonnancer(t, 0);
 			} else {
-				
+				// TODO
 			}
 			
 		}
