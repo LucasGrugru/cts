@@ -6,9 +6,16 @@ import java.util.List;
 public class Graphe {
 	
 	private List<Tache> taches;
+	private List<Arete> aretes;
+	
+	public Graphe(List<Tache> taches, List<Arete> aretes) {
+		this.taches = taches;
+		this.aretes = aretes;
+	}
 	
 	public Graphe(List<Tache> taches) {
 		this.taches = taches;
+		this.aretes = new ArrayList<Arete>();
 	}
 
 	public List<Tache> getPredecesseurs(Tache tacheSuivante) {
@@ -40,4 +47,15 @@ public class Graphe {
 		}
 		return null;
 	}
+
+	public boolean existeArete(Tache tacheC, Tache tacheS) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void ajouteArete(Arete arete) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

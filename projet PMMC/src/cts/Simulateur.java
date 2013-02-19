@@ -41,6 +41,7 @@ public class Simulateur {
 			}
 			
 		}
+		
 		//P la liste des processeurs
 		//S = {};U = V ; (*marquer toutes les taches comme non ordonnancees*)
 		//Calculer L+(t) pour chaque tache t et mettre L-(t) a 0 pour chaque tache d'entree t;
@@ -59,7 +60,8 @@ public class Simulateur {
 			//U = U\(t);
 		//}
 	}
-
+	
+	
 	private Processeur getProcesseurMax(List<Tache> predecesseurs) {
 		List<Processeur> temp = new ArrayList<Processeur>();
 		for(Processeur p : processeurs) {

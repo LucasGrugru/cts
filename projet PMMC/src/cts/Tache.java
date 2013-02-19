@@ -6,7 +6,7 @@ import java.util.List;
 public class Tache {
 
 	private int temps;
-	private List<Arete> successeurs;
+	
 	private Graphe graphe;
 	public Etat etat;
 	public int debut;
