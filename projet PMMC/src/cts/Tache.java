@@ -6,28 +6,16 @@ import java.util.List;
 public class Tache {
 
 	private int temps;
-	
+	private int num;
 	private Graphe graphe;
 	public Etat etat;
 	public int debut;
 	
-	public Tache(int temps, List<Arete> successeurs) {
+	public Tache(int temps, int num) {
+		this.num = num;
 		this.temps = temps;
-		this.successeurs = successeurs;
 		etat = Etat.LIBRE;
 		this.debut = -1;
-	}
-	
-	public void addArete(Arete a) {
-		successeurs.add(a);
-	}
-	
-	public List<Tache> getSuccesseurs() {
-		List<Tache> taches = new ArrayList<Tache>();
-		for(Arete a : successeurs) {
-			taches.add(a.getSuccesseur());
-		}
-		return taches;
 	}
 	
 	public int getTopLevel() {
@@ -47,12 +35,12 @@ public class Tache {
 	}
 	
 	public int getBottomLevel() {
-		if(this.getSuccesseurs().isEmpty()) {
+		if(this.graphe.getSuccesseurs(this).isEmpty()) {
 			return 0;
 		} else {
 			int max = 0;
 			int temp = 0;
-			for(Tache t : this.getSuccesseurs()) {
+			for(Tache t : this.graphe.getSuccesseurs(this)) {
 				temp = t.getBottomLevel() + t.getTemps() + this.getCommunication(t);
 				if(temp > max) {
 					max = temp;
@@ -71,9 +59,9 @@ public class Tache {
 	}
 
 	private int getCommunication(Tache t) {
-		return this.successeurs.get( 
-					this.successeurs.indexOf(t) 
-				).getTime();
+		return this.graphe.getSuccesseurs(this).get( 
+					this.graphe.getSuccesseurs(this).indexOf(t) 
+				).getTemps();
 	}
 
 	public void begin(int i) {

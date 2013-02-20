@@ -21,11 +21,20 @@ public class Graphe {
 	public List<Tache> getPredecesseurs(Tache tacheSuivante) {
 		List<Tache> listPredecesseurs = new ArrayList<Tache>();
 		for(Tache t : this.taches) {
-			if(t.getSuccesseurs().contains(tacheSuivante)) {
+			if(this.getSuccesseurs(t).contains(tacheSuivante)) {
 				listPredecesseurs.add(t);
 			}
 		}
 		return listPredecesseurs;
+	}
+	
+	public List<Tache> getSuccesseurs(Tache t) {
+		return null;/*
+		List<Tache> taches = new ArrayList<Tache>();
+		for(Arete a : successeurs) {
+			taches.add(a.getSuccesseur());
+		}
+		return taches;*/
 	}
 	
 	public List<Tache> getEntrees() {

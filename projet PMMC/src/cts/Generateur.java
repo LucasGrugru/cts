@@ -2,7 +2,6 @@ package cts;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.lang.Math;
 
 public class Generateur {
@@ -28,7 +27,7 @@ public class Generateur {
 		Tache tacheS;
 		int[] t = getIntervalTempsE();
 		for(int i=0; i<this.nbNoeuds; i++) {
-			tacheC = new Tache(randInteger(t[0], t[1]), null);
+			tacheC = new Tache(randInteger(t[0], t[1]), i+1);
 			
 			if(!tachesCrees.isEmpty()) {
 				this.graphe.ajouteArete(new Arete(i, tacheC, tachesCrees.get(randInteger(0, tachesCrees.size()))));
