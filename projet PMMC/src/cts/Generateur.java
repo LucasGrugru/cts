@@ -18,6 +18,8 @@ public class Generateur {
 	
 	private void genererGraphe() {
 		
+		
+		
 	} 
 	
 	private List<Tache> genererTache(int densite) {
