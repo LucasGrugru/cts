@@ -36,7 +36,7 @@ public class Tache {
 	
 	public int getBottomLevel() {
 		if(this.graphe.getSuccesseurs(this).isEmpty()) {
-			return 0;
+			return this.temps;
 		} else {
 			int max = 0;
 			int temp = 0;
@@ -69,3 +69,5 @@ public class Tache {
 	}
 	
 }
+
+
