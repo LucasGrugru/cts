@@ -29,12 +29,12 @@ public class Graphe {
 	}
 	
 	public List<Tache> getSuccesseurs(Tache t) {
-		return null;/*
 		List<Tache> taches = new ArrayList<Tache>();
-		for(Arete a : successeurs) {
-			taches.add(a.getSuccesseur());
+		for(Arete a : aretes) {
+			if(a.getCourant().equals(t))
+				taches.add(a.getSuccesseur());
 		}
-		return taches;*/
+		return taches;
 	}
 	
 	public List<Tache> getEntrees() {
@@ -58,13 +58,15 @@ public class Graphe {
 	}
 
 	public boolean existeArete(Tache tacheC, Tache tacheS) {
-		// TODO Auto-generated method stub
+		for(Arete a : aretes) {
+			if(a.getCourant().equals(tacheC) && a.getCourant().equals(tacheS))
+				return true;
+		}
 		return false;
 	}
 
 	public void ajouteArete(Arete arete) {
-		// TODO Auto-generated method stub
-		
+		this.aretes.add(arete);
 	}
 
 }

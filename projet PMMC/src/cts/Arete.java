@@ -3,11 +3,13 @@ package cts;
 public class Arete {
 
 	private int time;
-	private Tache successeur;
+	private Tache tacheS;
+	private Tache tacheC;
 	
 	public Arete(int time, Tache tacheC, Tache tacheS) {
 		this.time = time;
-		this.successeur = successeur;
+		this.tacheS = tacheS;
+		this.tacheC = tacheC;
 	}
 	
 	public int getTime() {
@@ -15,6 +17,10 @@ public class Arete {
 	}
 	
 	public Tache getSuccesseur() {
-		return this.successeur;
+		return this.tacheS;
+	}
+
+	public Tache getCourant() {
+		return this.tacheC;
 	}
 }
