@@ -40,13 +40,20 @@ public class Graphe {
 	public List<Tache> getEntrees() {
 		List<Tache> entrees = new ArrayList<Tache>();	
 		for(Tache t : this.taches)
-			if(t.getTopLevel() == 0)
+			if(this.getTopLevel(t) == 0)
 				entrees.add(t);
 		return entrees;
 	}
 
 	public List<Tache> getTaches() {
 		return taches;
+	}
+	
+	public Tache getTache(int num) {
+		for(Tache t: taches)
+			if(t.getNum() == num)
+				return t;
+		return null;
 	}
 
 	public Tache getFirstFreeCritical() {
@@ -69,4 +76,46 @@ public class Graphe {
 		this.aretes.add(arete);
 	}
 
+	public int getTopLevel(Tache tache) {
+		if(this.getPredecesseurs(tache).isEmpty()) {
+			return 0;
+		} else {
+			int max = 0;
+			int temp = 0;
+			for(Tache t : this.getPredecesseurs(tache)) {
+				temp = this.getTopLevel(t) + t.getTemps() + this.getCommunication(tache, t);
+				if(temp > max) {
+					max = temp;
+				}
+			}
+			return max;
+		}
+	}
+	
+	public int getBottomLevel(Tache tache) {
+		if(this.getSuccesseurs(tache).isEmpty()) {
+			return tache.getTemps();
+		} else {
+			int max = 0;
+			int temp = 0;
+			for(Tache t : this.getSuccesseurs(tache)) {
+				temp = this.getBottomLevel(t) + t.getTemps() + this.getCommunication(tache, t);
+				if(temp > max) {
+					max = temp;
+				}
+			}
+			return max;
+		}	
+	}
+	
+	public int getPriorite(Tache t) {
+		return this.getBottomLevel(t) + this.getTopLevel(t);
+	}
+	
+	public int getCommunication(Tache tacheC, Tache tacheS) {
+		for(Arete a : aretes)
+			if(a.getCourant().equals(tacheC) && a.getSuccesseur().equals(tacheS))
+				return a.getTime();
+		return (Integer) null;
+	}
 }

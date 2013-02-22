@@ -34,7 +34,7 @@ public class Simulateur {
 			
 			p = getProcesseurMax(graphe.getPredecesseurs(t));
 			
-			if(t.getTopLevel() >= p.getDisponibilite()) { //date de disponibilit� du processeur des predecesseurs de t
+			if(this.graphe.getTopLevel(t) >= p.getDisponibilite()) { //date de disponibilit� du processeur des predecesseurs de t
 				p.ordonnancer(t, 0);
 			} else {
 				// TODO
