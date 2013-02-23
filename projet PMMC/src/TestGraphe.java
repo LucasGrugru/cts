@@ -69,7 +69,11 @@ public class TestGraphe {
 	
 	@Test
 	public void testGetCommunication() {
-		
+		Assert.assertEquals(graphe.getCommunication(tache1, tache3), 2);
+		Assert.assertEquals(graphe.getCommunication(tache1, tache4), 3);
+		Assert.assertEquals(graphe.getCommunication(tache2, tache3), 1);
+		Assert.assertEquals(graphe.getCommunication(tache3, tache5), 1);
+		Assert.assertEquals(graphe.getCommunication(tache4, tache5), 3);
 	}
 	
 	@Test
