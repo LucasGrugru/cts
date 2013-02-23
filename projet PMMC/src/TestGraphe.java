@@ -12,28 +12,64 @@ import cts.Tache;
 
 public class TestGraphe {
 	
-	public Graphe graphe;
+	private Graphe graphe;
+	private Tache tache1;
+	private Tache tache2;
+	private Tache tache3;
+	private Tache tache4;
+	private Tache tache5;
 
 	@Before
 	public void init() {
 		ArrayList<Tache> taches = new ArrayList<Tache>();
 		
-		taches.add(new Tache(6, 1));
-		taches.add(new Tache(4, 2));
-		taches.add(new Tache(4, 3));
-		taches.add(new Tache(2, 4));
-		taches.add(new Tache(5, 5));
+		tache1 = new Tache(6, 1);
+		tache2 = new Tache(4, 2);
+		tache3 = new Tache(4, 3);
+		tache4 = new Tache(2, 4);
+		tache5 = new Tache(5, 5);
+		
+		taches.add(tache1);
+		taches.add(tache2);
+		taches.add(tache3);
+		taches.add(tache4);
+		taches.add(tache5);
 		
 		graphe = new Graphe(taches);
 		
-		graphe.ajouteArete(new Arete(2, graphe.getTache(1), graphe.getTache(3)));
-		graphe.ajouteArete(new Arete(3, graphe.getTache(1), graphe.getTache(4)));
+		graphe.ajouteArete(new Arete(2, tache1, tache3));
+		graphe.ajouteArete(new Arete(3, tache1, tache4));
 		
-		graphe.ajouteArete(new Arete(1, graphe.getTache(2), graphe.getTache(3)));
+		graphe.ajouteArete(new Arete(1, tache2, tache3));
 		
-		graphe.ajouteArete(new Arete(1, graphe.getTache(3), graphe.getTache(5)));
+		graphe.ajouteArete(new Arete(1, tache3, tache5));
 		
-		graphe.ajouteArete(new Arete(3, graphe.getTache(4), graphe.getTache(5)));
+		graphe.ajouteArete(new Arete(3, tache4, tache5));
+	}
+	
+	@Test
+	public void testGetSuccesseurs() {
+		Assert.assertTrue(graphe.getSuccesseurs(tache4).contains(tache5));
+		
+		Assert.assertFalse(graphe.getSuccesseurs(tache4).contains(tache4));
+		Assert.assertFalse(graphe.getSuccesseurs(tache4).contains(tache3));
+		Assert.assertFalse(graphe.getSuccesseurs(tache4).contains(tache2));
+		Assert.assertFalse(graphe.getSuccesseurs(tache4).contains(tache1));
+	}
+	
+	@Test
+	public void testGetPredecesseurs() {
+		Assert.assertTrue(graphe.getPredecesseurs(tache4).contains(tache1));
+		
+		Assert.assertFalse(graphe.getPredecesseurs(tache4).contains(tache4));
+		Assert.assertFalse(graphe.getPredecesseurs(tache4).contains(tache3));
+		Assert.assertFalse(graphe.getPredecesseurs(tache4).contains(tache2));
+		Assert.assertFalse(graphe.getPredecesseurs(tache4).contains(tache5));
+	}
+	
+	@Test
+	public void testGetCommunication() {
+		
 	}
 	
 	@Test
