@@ -66,7 +66,7 @@ public class Graphe {
 
 	public boolean existeArete(Tache tacheC, Tache tacheS) {
 		for(Arete a : aretes) {
-			if(a.getCourant().equals(tacheC) && a.getCourant().equals(tacheS))
+			if(a.getCourant() == tacheC && a.getSuccesseur() == tacheS)
 				return true;
 		}
 		return false;
@@ -99,7 +99,7 @@ public class Graphe {
 			int max = 0;
 			int temp = 0;
 			for(Tache t : this.getSuccesseurs(tache)) {
-				temp = this.getBottomLevel(t) + t.getTemps() + this.getCommunication(tache, t);
+				temp = tache.getTemps() + this.getCommunication(tache, t) + this.getBottomLevel(t);
 				if(temp > max) {
 					max = temp;
 				}
@@ -114,7 +114,7 @@ public class Graphe {
 	
 	public int getCommunication(Tache tacheC, Tache tacheS) {
 		for(Arete a : aretes)
-			if(a.getCourant().equals(tacheC) && a.getSuccesseur().equals(tacheS))
+			if(a.getCourant() == tacheC && a.getSuccesseur() == tacheS)
 				return a.getTime();
 		return (Integer) null;
 	}

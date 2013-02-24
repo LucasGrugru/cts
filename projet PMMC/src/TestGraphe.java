@@ -51,20 +51,35 @@ public class TestGraphe {
 	public void testGetSuccesseurs() {
 		Assert.assertTrue(graphe.getSuccesseurs(tache4).contains(tache5));
 		
-		Assert.assertFalse(graphe.getSuccesseurs(tache4).contains(tache4));
-		Assert.assertFalse(graphe.getSuccesseurs(tache4).contains(tache3));
-		Assert.assertFalse(graphe.getSuccesseurs(tache4).contains(tache2));
-		Assert.assertFalse(graphe.getSuccesseurs(tache4).contains(tache1));
+		Assert.assertEquals(1, graphe.getSuccesseurs(tache4).size());
 	}
 	
 	@Test
 	public void testGetPredecesseurs() {
 		Assert.assertTrue(graphe.getPredecesseurs(tache4).contains(tache1));
 		
-		Assert.assertFalse(graphe.getPredecesseurs(tache4).contains(tache4));
-		Assert.assertFalse(graphe.getPredecesseurs(tache4).contains(tache3));
-		Assert.assertFalse(graphe.getPredecesseurs(tache4).contains(tache2));
-		Assert.assertFalse(graphe.getPredecesseurs(tache4).contains(tache5));
+		Assert.assertEquals(1, graphe.getPredecesseurs(tache4).size());
+	}
+	
+	@Test
+	public void testGetEntrees() {
+		Assert.assertTrue(graphe.getEntrees().contains(tache1));
+		Assert.assertTrue(graphe.getEntrees().contains(tache2));
+		
+		Assert.assertFalse(graphe.getEntrees().contains(tache3));
+		Assert.assertFalse(graphe.getEntrees().contains(tache4));
+		Assert.assertFalse(graphe.getEntrees().contains(tache5));
+	}
+	
+	@Test
+	public void testExisteArete() {
+		Assert.assertTrue(graphe.existeArete(tache1, tache3));
+		Assert.assertTrue(graphe.existeArete(tache1, tache4));
+		Assert.assertTrue(graphe.existeArete(tache2, tache3));
+		Assert.assertTrue(graphe.existeArete(tache3, tache5));
+		Assert.assertTrue(graphe.existeArete(tache4, tache5));
+		
+		Assert.assertFalse(graphe.existeArete(tache3, tache1));
 	}
 	
 	@Test
@@ -78,17 +93,17 @@ public class TestGraphe {
 	
 	@Test
 	public void testGetBottomLevel() {
-		Assert.assertEquals(graphe.getBottomLevel(graphe.getTache(4)), 9);
+		Assert.assertEquals(10, graphe.getBottomLevel(graphe.getTache(4)));
 	}
 	
 	@Test
 	public void testGetTopLevel() {
-		Assert.assertEquals(graphe.getTopLevel(graphe.getTache(4)), 10);
+		Assert.assertEquals(9, graphe.getTopLevel(graphe.getTache(4)));
 	}
 	
 	@Test
 	public void testPriorite() {
-		Assert.assertEquals(graphe.getPriorite(graphe.getTache(4)), 19);
+		Assert.assertEquals(19, graphe.getPriorite(graphe.getTache(4)));
 	}
 
 }
