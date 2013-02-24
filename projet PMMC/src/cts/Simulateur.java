@@ -21,7 +21,7 @@ public class Simulateur {
 	}
 	
 	
-	public void simulerCTS() {
+	public void simulerCTS() throws Exception {
 		List<Tache> alpha = this.graphe.getEntrees();
 		List<Tache> S = new ArrayList<Tache>(); // liste des taches ordonnanc�es
 		int U = this.graphe.getTaches().size();

@@ -62,13 +62,11 @@ public class TestGraphe {
 	}
 	
 	@Test
-	public void testGetEntrees() {
+	public void testGetEntrees() throws Exception {
 		Assert.assertTrue(graphe.getEntrees().contains(tache1));
 		Assert.assertTrue(graphe.getEntrees().contains(tache2));
 		
-		Assert.assertFalse(graphe.getEntrees().contains(tache3));
-		Assert.assertFalse(graphe.getEntrees().contains(tache4));
-		Assert.assertFalse(graphe.getEntrees().contains(tache5));
+		Assert.assertEquals(2, graphe.getEntrees().size());
 	}
 	
 	@Test
@@ -83,7 +81,7 @@ public class TestGraphe {
 	}
 	
 	@Test
-	public void testGetCommunication() {
+	public void testGetCommunication() throws Exception {
 		Assert.assertEquals(graphe.getCommunication(tache1, tache3), 2);
 		Assert.assertEquals(graphe.getCommunication(tache1, tache4), 3);
 		Assert.assertEquals(graphe.getCommunication(tache2, tache3), 1);
@@ -92,17 +90,17 @@ public class TestGraphe {
 	}
 	
 	@Test
-	public void testGetBottomLevel() {
+	public void testGetBottomLevel() throws Exception {
 		Assert.assertEquals(10, graphe.getBottomLevel(graphe.getTache(4)));
 	}
 	
 	@Test
-	public void testGetTopLevel() {
+	public void testGetTopLevel() throws Exception {
 		Assert.assertEquals(9, graphe.getTopLevel(graphe.getTache(4)));
 	}
 	
 	@Test
-	public void testPriorite() {
+	public void testPriorite() throws Exception {
 		Assert.assertEquals(19, graphe.getPriorite(graphe.getTache(4)));
 	}
 

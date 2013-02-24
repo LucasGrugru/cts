@@ -37,7 +37,7 @@ public class Graphe {
 		return taches;
 	}
 	
-	public List<Tache> getEntrees() {
+	public List<Tache> getEntrees() throws Exception {
 		List<Tache> entrees = new ArrayList<Tache>();	
 		for(Tache t : this.taches)
 			if(this.getTopLevel(t) == 0)
@@ -49,19 +49,19 @@ public class Graphe {
 		return taches;
 	}
 	
-	public Tache getTache(int num) {
+	public Tache getTache(int num) throws Exception {
 		for(Tache t: taches)
 			if(t.getNum() == num)
 				return t;
-		return null;
+		throw new Exception("Tache inexistante");
 	}
 
-	public Tache getFirstFreeCritical() {
+	public Tache getFirstFreeCritical() throws Exception {
 		for(Tache t : taches) {
 			if(t.etat == Etat.LIBRE)
 				return t;
 		}
-		return null;
+		throw new Exception("Aucune tache libre");
 	}
 
 	public boolean existeArete(Tache tacheC, Tache tacheS) {
@@ -76,7 +76,7 @@ public class Graphe {
 		this.aretes.add(arete);
 	}
 
-	public int getTopLevel(Tache tache) {
+	public int getTopLevel(Tache tache) throws Exception {
 		if(this.getPredecesseurs(tache).isEmpty()) {
 			return 0;
 		} else {
@@ -92,7 +92,7 @@ public class Graphe {
 		}
 	}
 	
-	public int getBottomLevel(Tache tache) {
+	public int getBottomLevel(Tache tache) throws Exception {
 		if(this.getSuccesseurs(tache).isEmpty()) {
 			return tache.getTemps();
 		} else {
@@ -108,14 +108,14 @@ public class Graphe {
 		}	
 	}
 	
-	public int getPriorite(Tache t) {
+	public int getPriorite(Tache t) throws Exception {
 		return this.getBottomLevel(t) + this.getTopLevel(t);
 	}
 	
-	public int getCommunication(Tache tacheC, Tache tacheS) {
+	public int getCommunication(Tache tacheC, Tache tacheS) throws Exception {
 		for(Arete a : aretes)
 			if(a.getCourant() == tacheC && a.getSuccesseur() == tacheS)
 				return a.getTime();
-		return (Integer) null;
+		throw new Exception("Arete inexistante");
 	}
 }
