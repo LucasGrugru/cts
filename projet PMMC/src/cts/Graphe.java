@@ -113,9 +113,10 @@ public class Graphe {
 	}
 	
 	public int getCommunication(Tache tacheC, Tache tacheS) throws Exception {
-		for(Arete a : aretes)
-			if(a.getCourant() == tacheC && a.getSuccesseur() == tacheS)
-				return a.getTime();
+		if(this.existeArete(tacheC, tacheS))
+			for(Arete a : aretes)
+				if(a.getCourant() == tacheC && a.getSuccesseur() == tacheS)
+					return a.getTime();
 		throw new Exception("Arete inexistante");
 	}
 }

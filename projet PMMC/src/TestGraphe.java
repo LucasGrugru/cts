@@ -39,11 +39,8 @@ public class TestGraphe {
 		
 		graphe.ajouteArete(new Arete(2, tache1, tache3));
 		graphe.ajouteArete(new Arete(3, tache1, tache4));
-		
 		graphe.ajouteArete(new Arete(1, tache2, tache3));
-		
 		graphe.ajouteArete(new Arete(1, tache3, tache5));
-		
 		graphe.ajouteArete(new Arete(3, tache4, tache5));
 	}
 	
@@ -104,4 +101,13 @@ public class TestGraphe {
 		Assert.assertEquals(19, graphe.getPriorite(graphe.getTache(4)));
 	}
 
+	@Test (expected=Exception.class)
+	public void testException1() throws Exception {
+		graphe.getTache(6);
+	}
+	
+	@Test (expected=Exception.class)
+	public void testException2() throws Exception {
+		graphe.getCommunication(tache1, tache5);
+	}
 }
