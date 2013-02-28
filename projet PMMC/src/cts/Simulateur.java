@@ -15,12 +15,21 @@ public class Simulateur {
 		this.graphe = graphe;
 	}
 	
+	/**
+	 * Initialise le bon nombre de processeur pour simuler l'ordonnancement du graphe
+	 * @param nbProcesseur le nombre de processeur souhaité pour la simulation.
+	 */
 	private void initialiser(int nbProcesseur) {
+		processeurs = new ArrayList<Processeur>();
 		for(int i=0; i<nbProcesseur; i++)
 			processeurs.add(new Processeur());
 	}
 	
-	
+	/**
+	 * Effectue une simulation de l'algorithme d'ordonnancement CTS
+	 * @return	la makespan de la simulation
+	 * @throws Exception exception retourné en cas de mauvaise construction du graphe.
+	 */
 	public int simulerCTS() throws Exception {
 		List<Tache> alpha = this.graphe.getEntrees();
 		setLibre(alpha);
@@ -41,6 +50,9 @@ public class Simulateur {
 				p.ordonnancer(t, p.getDisponibilite());
 				
 			}
+			
+			
+			
 			S.add(t);
 			for(Tache t1 : this.graphe.getSuccesseurs(t)) {
 				preds = this.graphe.getPredecesseurs(t1);
@@ -72,6 +84,10 @@ public class Simulateur {
 		//}
 	}
 
+	/**
+	 * Met les taches de alpha disponibles pour etre ordonnancees.
+	 * @param alpha
+	 */
 	private void setLibre(List<Tache> alpha) {
 		for(Tache t : alpha) {
 			t.etat = Etat.LIBRE;
@@ -79,24 +95,32 @@ public class Simulateur {
 		
 	}
 
+	/**
+	 * 
+	 * @return	le processeur avec la disponibilité minimale
+	 */
 	private Processeur getMinDispo() {
 		return Collections.min(this.processeurs);
 	}
 	
+	/**
+	 * 
+	 * @return	le processeur avec la disponibilité maximale
+	 */
 	private Processeur getMaxDispo() {
 		return Collections.max(this.processeurs);
 	}
-	
-	private int getMakespan() {
-		return Collections.max(this.processeurs).getDisponibilite();
-	}
 
-	public Tache getBestFree(List<Tache> alpha) throws Exception{
-		Tache t1, t2 = null;
-		int temp;
-		temp = 0;
-		for(int i = 0; i < alpha.size(); i++){
-			t1 = alpha.get(i);
+	/**
+	 * 
+	 * @param alpha une liste de tache
+	 * @return	la tache ayant la meilleur priorite		
+	 * @throws Exception renvoyé par getPriorité en cas de tache inexistante (generalement mauvaise construction du graphe)
+	 */
+	private Tache getBestFree(List<Tache> alpha) throws Exception{
+		Tache t2 = null;
+		int temp = 0;
+		for(Tache t1 : alpha){
 			if(this.graphe.getPriorite(t1) > temp ){
 				temp = this.graphe.getPriorite(t1);
 				t2 = t1;
@@ -105,13 +129,14 @@ public class Simulateur {
 		return t2;
 	}
 
-	/*
+	/**
 	 * Recupere le processeur ayant la disponibilité la plus haute d'une liste de tache.
 	 * @predecesseur  la liste de tache.
+	 * @return le processeur ayant la disponibilite la plus haute.
 	 */
 	private Processeur getProcesseurMaxDispo(List<Tache> predecesseurs) {
 		int temps = getMaxDispo().getDisponibilite();
-		Processeur pRecherche = null;
+		Processeur pRecherche = getMaxDispo();
 		for(Processeur p : processeurs) {
 			for(Tache t : predecesseurs) {
 				if(p.inList(t)) {

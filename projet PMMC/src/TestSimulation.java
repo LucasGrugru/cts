@@ -2,6 +2,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,11 +45,13 @@ public class TestSimulation {
 		graphe.ajouteArete(new Arete(1, tache2, tache3));
 		graphe.ajouteArete(new Arete(1, tache3, tache5));
 		graphe.ajouteArete(new Arete(3, tache4, tache5));
+		
+		simulateur = new Simulateur(2, graphe);
 	}
 	
 	@Test
-	public void testCreationProcesseur() {
-		
+	public void testsimulation() throws Exception {
+		Assert.assertEquals(16, simulateur.simulerCTS());
 	}
 
 }
