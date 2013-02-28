@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Simulateur {
 
-	private List<Processeur> processeurs; //20 processeurs
+	private List<Processeur> processeurs; //2 processeurs
 	private Graphe graphe;
 
 	
@@ -21,26 +21,37 @@ public class Simulateur {
 	}
 	
 	
-	public void simulerCTS() throws Exception {
+	public int simulerCTS() throws Exception {
 		List<Tache> alpha = this.graphe.getEntrees();
-		List<Tache> S = new ArrayList<Tache>(); // liste des taches ordonnancï¿½es
-		int U = this.graphe.getTaches().size();
+		setLibre(alpha);
+		List<Tache> S = new ArrayList<Tache>(); // liste des taches ordonnancees
+		List<Tache> preds; //liste temporaire des predecesseurs
 		Tache t;
 		Processeur p;
-		while(U != 0) {
-			t = this.graphe.getFirstFreeCritical();
-			if(t == null)
-				System.exit(-1);
+		while(!alpha.isEmpty()) {
+			t = this.getBestFree(alpha);
 			
-			p = getProcesseurMax(graphe.getPredecesseurs(t));
+			p = getProcesseurMaxDispo(graphe.getPredecesseurs(t));
 			
-			if(this.graphe.getTopLevel(t) >= p.getDisponibilite()) { //date de disponibilitï¿½ du processeur des predecesseurs de t
+			if(this.graphe.getTopLevel(t) >= p.getDisponibilite()) { //date de disponibilite du processeur des predecesseurs de t
 				p.ordonnancer(t, 0);
 			} else {
-				// TODO
+				if(p.getDisponibilite() > getMinDispo().getDisponibilite())
+					p = getMinDispo();
+				p.ordonnancer(t, p.getDisponibilite());
+				
 			}
-			
+			S.add(t);
+			for(Tache t1 : this.graphe.getSuccesseurs(t)) {
+				preds = this.graphe.getPredecesseurs(t1);
+				if(S.containsAll(preds)) {
+					alpha.add(t1);
+				}
+			}
+			alpha.remove(t);
 		}
+		
+		return getMaxDispo().getDisponibilite();
 		
 		//P la liste des processeurs
 		//S = {};U = V ; (*marquer toutes les taches comme non ordonnancees*)
@@ -60,17 +71,57 @@ public class Simulateur {
 			//U = U\(t);
 		//}
 	}
+
+	private void setLibre(List<Tache> alpha) {
+		for(Tache t : alpha) {
+			t.etat = Etat.LIBRE;
+		}
+		
+	}
+
+	private Processeur getMinDispo() {
+		return Collections.min(this.processeurs);
+	}
 	
+	private Processeur getMaxDispo() {
+		return Collections.max(this.processeurs);
+	}
 	
-	private Processeur getProcesseurMax(List<Tache> predecesseurs) {
-		List<Processeur> temp = new ArrayList<Processeur>();
+	private int getMakespan() {
+		return Collections.max(this.processeurs).getDisponibilite();
+	}
+
+	public Tache getBestFree(List<Tache> alpha) throws Exception{
+		Tache t1, t2 = null;
+		int temp;
+		temp = 0;
+		for(int i = 0; i < alpha.size(); i++){
+			t1 = alpha.get(i);
+			if(this.graphe.getPriorite(t1) > temp ){
+				temp = this.graphe.getPriorite(t1);
+				t2 = t1;
+			}
+		}
+		return t2;
+	}
+
+	/*
+	 * Recupere le processeur ayant la disponibilité la plus haute d'une liste de tache.
+	 * @predecesseur  la liste de tache.
+	 */
+	private Processeur getProcesseurMaxDispo(List<Tache> predecesseurs) {
+		int temps = getMaxDispo().getDisponibilite();
+		Processeur pRecherche = null;
 		for(Processeur p : processeurs) {
 			for(Tache t : predecesseurs) {
 				if(p.inList(t)) {
-					temp.add(p);
+					if(t.debut + t.getTemps() >= temps) {
+						pRecherche = p;
+						temps = t.debut + t.getTemps();
+					}
 				}
 			}
 		}
-		return Collections.min(temp);
+		return pRecherche;
 	}
 }

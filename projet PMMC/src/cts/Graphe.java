@@ -56,7 +56,7 @@ public class Graphe {
 		throw new Exception("Tache inexistante");
 	}
 
-	public Tache getFirstFreeCritical() throws Exception {
+	public Tache getBestFree() throws Exception {
 		for(Tache t : taches) {
 			if(t.etat == Etat.LIBRE)
 				return t;

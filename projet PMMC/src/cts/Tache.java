@@ -11,7 +11,7 @@ public class Tache {
 	public Tache(int temps, int num) {
 		this.num = num;
 		this.temps = temps;
-		etat = Etat.LIBRE;
+		etat = Etat.NON_LIBRE;
 		this.debut = -1;
 	}
 	

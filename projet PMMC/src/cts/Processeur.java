@@ -35,9 +35,9 @@ public class Processeur implements Comparable<Object> {
 			return -1;
 	}
 
-	public void ordonnancer(Tache t, int retard) {
+	public void ordonnancer(Tache t, int debut) {
 		this.file.add(t);
-		t.begin(this.disponibilite + retard);
+		t.begin(this.disponibilite + debut);
 		this.disponibilite += t.getTemps();
 		t.etat = Etat.ORDONNANCE;
 	}
