@@ -6,13 +6,26 @@ import java.util.List;
 
 public class Simulateur {
 
-	private List<Processeur> processeurs; //2 processeurs
+	private List<Processeur> processeurs; //3 processeurs
 	private Graphe graphe;
 
 	
 	public Simulateur(int nbProcesseur, Graphe graphe) {
 		initialiser(nbProcesseur);
 		this.graphe = graphe;
+	}
+	
+	public Simulateur(int nbProcesseur) {
+		initialiser(nbProcesseur);
+		this.graphe = null;
+	}
+	
+	/**
+	 * Modifier le graphe a simuler
+	 * @param g le nouveau graphe
+	 */
+	public void setGraphe(Graphe g) {
+		this.graphe = g;
 	}
 	
 	/**
@@ -148,5 +161,41 @@ public class Simulateur {
 			}
 		}
 		return pRecherche;
+	}
+
+	public int simulerBestCTS() throws Exception {
+		List<Tache> alpha = this.graphe.getEntrees();
+		setLibre(alpha);
+		List<Tache> S = new ArrayList<Tache>(); // liste des taches ordonnancees
+		List<Tache> preds; //liste temporaire des predecesseurs
+		Tache t;
+		Processeur p;
+		while(!alpha.isEmpty()) {
+			t = this.getBestFree(alpha);
+			
+			p = getProcesseurMaxDispo(graphe.getPredecesseurs(t));
+			
+			if(this.graphe.getTopLevel(t) >= p.getDisponibilite()) { //date de disponibilite du processeur des predecesseurs de t
+				p.ordonnancer(t, 0);
+			} else {
+				if(p.getDisponibilite() > getMinDispo().getDisponibilite())
+					p = getMinDispo();
+				p.ordonnancer(t, p.getDisponibilite());
+				
+			}
+			
+			
+			
+			S.add(t);
+			for(Tache t1 : this.graphe.getSuccesseurs(t)) {
+				preds = this.graphe.getPredecesseurs(t1);
+				if(S.containsAll(preds)) {
+					alpha.add(t1);
+				}
+			}
+			alpha.remove(t);
+		}
+		
+		return getMaxDispo().getDisponibilite();
 	}
 }

@@ -7,7 +7,7 @@ import java.lang.Math;
 public class Generateur {
 
 	private int nbNoeuds;
-	private Graphe graphe;
+	public Graphe graphe;
 	private double granularite;
 	
 	public Generateur(int nbNoeuds, double granularite, int densite) {
@@ -16,11 +16,11 @@ public class Generateur {
 		this.graphe = new Graphe(genererTache(densite));
 	}
 	
-	private void genererGraphe() {
-		
-		
-		
-	} 
+	public Generateur(int nbNoeuds, double granularite) {
+		this.nbNoeuds = nbNoeuds;
+		this.granularite = granularite;
+		this.graphe = new Graphe(genererTache(randInteger(0, nbNoeuds)));
+	}
 	
 	private List<Tache> genererTache(int densite) {
 		List<Tache> taches = new ArrayList<Tache>();

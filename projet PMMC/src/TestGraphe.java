@@ -53,9 +53,9 @@ public class TestGraphe {
 	
 	@Test
 	public void testGetPredecesseurs() {
-		Assert.assertTrue(graphe.getPredecesseurs(tache4).contains(tache1));
-		
-		Assert.assertEquals(1, graphe.getPredecesseurs(tache4).size());
+		Assert.assertTrue(graphe.getPredecesseurs(tache3).contains(tache1));
+		Assert.assertTrue(graphe.getPredecesseurs(tache3).contains(tache2));
+		Assert.assertEquals(2, graphe.getPredecesseurs(tache3).size());
 	}
 	
 	@Test

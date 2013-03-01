@@ -8,7 +8,7 @@ public class Tache {
 	public Etat etat;
 	public int debut;
 	
-	public Tache(int temps, int num) {
+	public Tache(int temps, int num) { 
 		this.num = num;
 		this.temps = temps;
 		etat = Etat.NON_LIBRE;
