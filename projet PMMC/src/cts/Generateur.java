@@ -13,49 +13,54 @@ public class Generateur {
 	public Generateur(int nbNoeuds, double granularite, int densite) {
 		this.nbNoeuds = nbNoeuds;
 		this.granularite = granularite;
-		this.graphe = new Graphe(genererTache(densite));
+		this.graphe = new Graphe();
+		genererTache(densite);
 	}
 	
 	public Generateur(int nbNoeuds, double granularite) {
 		this.nbNoeuds = nbNoeuds;
 		this.granularite = granularite;
-		this.graphe = new Graphe(genererTache(randInteger(0, nbNoeuds)));
+		this.graphe = new Graphe();
+		genererTache(randInteger(0, nbNoeuds));
 	}
 	
-	private List<Tache> genererTache(int densite) {
+	private void genererTache(int densite) {
 		List<Tache> taches = new ArrayList<Tache>();
 		List<Tache> tachesCrees = new ArrayList<Tache>();
 		Tache tacheC;
 		Tache tacheS;
-		int[] t = getIntervalTempsE();
+		int[] te = getIntervalTempsE();
+		int[] tc = getIntervalTempsC();
 		for(int i=0; i<this.nbNoeuds; i++) {
-			tacheC = new Tache(randInteger(t[0], t[1]), i+1);
+			tacheC = new Tache(randInteger(te[0], te[1]), this.nbNoeuds - i);
 			
 			if(!tachesCrees.isEmpty()) {
-				this.graphe.ajouteArete(new Arete(i, tacheC, tachesCrees.get(randInteger(0, tachesCrees.size()))));
+				tacheS = tachesCrees.get(randInteger(0, tachesCrees.size()-1));
+				System.out.println(i+" : TacheC : "+tacheC.getNum()+", TacheS : "+tacheS.getNum());
+				this.graphe.ajouteArete(new Arete(randInteger(tc[0], tc[1]), tacheC, tacheS));
 			}
 			taches.add(tacheC);
 			tachesCrees.add(tacheC);
+			this.graphe.ajouteTache(tacheC);
 		}
-		
+		/*
 		for(int i=0; i<densite; i++) {
 			int r = randInteger(0,taches.size() - 1);
-			tacheC = taches.get(r);
-			tacheS = taches.get(randInteger(r + 1, taches.size()));
-			if(!this.graphe.existeArete(tacheC, tacheS)) {
-				this.graphe.ajouteArete(
-						new Arete(
-								randInteger(getIntervalTempsC()[0], 
-										getIntervalTempsC()[1]), 
-								tacheC, 
-								tacheS));
-			} else {
-				i--;
+			if(r < taches.size() - 1) {
+				tacheC = taches.get(r);
+				tacheS = taches.get(randInteger(r + 1, taches.size()-1));
+				if(!this.graphe.existeArete(tacheC, tacheS)) {
+					this.graphe.ajouteArete(
+							new Arete(
+									randInteger(getIntervalTempsC()[0], 
+											getIntervalTempsC()[1]), 
+									tacheC, 
+									tacheS));
+				} else {
+					i--;
+				}
 			}
-		}
-		
-		
-		return taches;
+		}*/
 	}
 
 	private int[] getIntervalTempsE() {

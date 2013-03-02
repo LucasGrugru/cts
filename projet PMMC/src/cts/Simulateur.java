@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Simulateur {
 
-	private List<Processeur> processeurs; //3 processeurs
+	private List<Processeur> processeurs;
 	private Graphe graphe;
 
 	
