@@ -134,7 +134,7 @@ public class Simulateur {
 		Tache t2 = null;
 		int temp = 0;
 		for(Tache t1 : alpha){
-			if(this.graphe.getPriorite(t1) > temp ){
+			if(this.graphe.getPriorite(t1) >= temp ){
 				temp = this.graphe.getPriorite(t1);
 				t2 = t1;
 			}

@@ -36,6 +36,8 @@ public class Processeur implements Comparable<Object> {
 	}
 
 	public void ordonnancer(Tache t, int debut) {
+		if(t == null)
+			System.out.println("t a ordonnancé null");
 		this.file.add(t);
 		t.begin(this.disponibilite + debut);
 		this.disponibilite += t.getTemps();

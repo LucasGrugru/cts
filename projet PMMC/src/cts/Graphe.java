@@ -130,6 +130,7 @@ public class Graphe {
 			int max = 0;
 			int temp = 0;
 			for(Tache t : this.getPredecesseurs(tache)) {
+				System.out.println("Tache "+tache.getNum()+" : predecesseurs tache "+t.getNum());
 				temp = this.getTopLevel(t) + t.getTemps() + this.getCommunication(t, tache);
 				if(temp > max) {
 					max = temp;

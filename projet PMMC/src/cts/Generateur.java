@@ -25,10 +25,10 @@ public class Generateur {
 	}
 	
 	private void genererTache(int densite) {
-		List<Tache> taches = new ArrayList<Tache>();
 		List<Tache> tachesCrees = new ArrayList<Tache>();
 		Tache tacheC;
 		Tache tacheS;
+		Arete a;
 		int[] te = getIntervalTempsE();
 		int[] tc = getIntervalTempsC();
 		for(int i=0; i<this.nbNoeuds; i++) {
@@ -36,13 +36,15 @@ public class Generateur {
 			
 			if(!tachesCrees.isEmpty()) {
 				tacheS = tachesCrees.get(randInteger(0, tachesCrees.size()-1));
+				a = new Arete(randInteger(tc[0], tc[1]), tacheC, tacheS);
+				if(!this.graphe.existeArete(a.getCourant(), a.getSuccesseur()) && a.getCourant().getNum() > a.getSuccesseur().getNum())
+					this.graphe.ajouteArete(new Arete(randInteger(tc[0], tc[1]), tacheC, tacheS));
 				System.out.println(i+" : TacheC : "+tacheC.getNum()+", TacheS : "+tacheS.getNum());
-				this.graphe.ajouteArete(new Arete(randInteger(tc[0], tc[1]), tacheC, tacheS));
 			}
-			taches.add(tacheC);
 			tachesCrees.add(tacheC);
 			this.graphe.ajouteTache(tacheC);
 		}
+		
 		/*
 		for(int i=0; i<densite; i++) {
 			int r = randInteger(0,taches.size() - 1);
