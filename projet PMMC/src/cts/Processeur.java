@@ -3,6 +3,11 @@ package cts;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * http://github.com/luckyboss1/cts
+ * @author lucky
+ *
+ */
 public class Processeur implements Comparable<Object> {
 
 	private int disponibilite;
@@ -17,6 +22,12 @@ public class Processeur implements Comparable<Object> {
 		return this.disponibilite;
 	}
 
+	/**
+	 * Verifie si la tache t est ordonnancé sur ce processeur
+	 * @param t la tache à verifier
+	 * @return 	true si la tache est ordonnancé sur le processeur
+	 * 			false si la tache n'est pas ordonnancé sur le processeur
+	 */
 	public boolean inList(Tache t) {
 		if(this.file.contains(t))
 			return true;
@@ -35,6 +46,11 @@ public class Processeur implements Comparable<Object> {
 			return -1;
 	}
 
+	/**
+	 * Ordonnance une tache sur le processeur
+	 * @param t la tache à ordnnancer
+	 * @param time le temps du debut de la tache sur ce processeur
+	 */
 	public void ordonnancer(Tache t, int time) {
 		if(t == null)
 			System.out.println("tache à ordonnancer null");

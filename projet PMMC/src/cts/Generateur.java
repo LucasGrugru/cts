@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.Math;
 
+/**
+ * http://github.com/luckyboss1/cts
+ * @author lucky
+ *
+ */
 public class Generateur {
 
 	private int nbNoeuds;
@@ -67,6 +72,10 @@ public class Generateur {
 		}
 	}
 
+	/**
+	 * Calcul l'interval de temps d'execution en fonction de la granularite souhaitee
+	 * @return tableau d'entier contenant la borne superieur et inferieur de l'interval
+	 */
 	private int[] getIntervalTempsE() {
 		int[] t = new int[2];
 		
@@ -75,7 +84,11 @@ public class Generateur {
 		
 		return t;
 	}
-	
+
+	/**
+	 * Calcul l'interval de temps de communication
+	 * @return tableau d'entier contenant la borne superieur et inferieur de l'interval
+	 */
 	private int[] getIntervalTempsC() {
 		int[] t = new int[2];
 		
@@ -85,6 +98,12 @@ public class Generateur {
 		return t;
 	}
 	
+	/**
+	 * Calcul un entier aléatoire
+	 * @param min borne supérieur pour l'entier
+	 * @param max borne inferieur pour l'entier
+	 * @return	un entier aléatoire entre min et max
+	 */
 	private int randInteger(int min, int max)
 	{
 	    return (int) (min + Math.random() * (max - min + 1));

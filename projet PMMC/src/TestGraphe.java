@@ -10,6 +10,10 @@ import cts.Arete;
 import cts.Graphe;
 import cts.Tache;
 
+/**
+ * Classe de test de la classe Graphe
+ *
+ */
 public class TestGraphe {
 	
 	private Graphe graphe;

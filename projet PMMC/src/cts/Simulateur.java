@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * http://github.com/luckyboss1/cts
+ * @author lucky
+ *
+ */
 public class Simulateur {
 
 	/**
@@ -66,15 +71,11 @@ public class Simulateur {
 			if(top >= p.getDisponibilite()) { //date de disponibilite du processeur des predecesseurs de t
 				l = getLambda(p, t, true);
 				p.ordonnancer(t, l);
-				System.out.println("Tache "+t.getNum()+" ordonnancé sur p"+processeurs.indexOf(p)+" a t"+l+" jusqu'a t"+(l+t.getTemps()));
-				
 			} else {
 				if(p.getDisponibilite() > getMinDispo().getDisponibilite())
 					p = getMinDispo();
 				l = getLambda(p, t, true);
-				p.ordonnancer(t, l);
-				System.out.println("Tache "+t.getNum()+" ordonnancé sur p"+processeurs.indexOf(p)+" a t"+l+" jusqu'a t"+(l+t.getTemps()));
-				
+				p.ordonnancer(t, l);	
 			}
 			
 			S.add(t);
@@ -110,7 +111,7 @@ public class Simulateur {
 				if(aux > tmp){
 					tmp = aux;
 				}
-				if(com){	System.out.println("aux = "+aux);
+				if(com){
 					aux += this.graphe.getCommunication(t2, t);
 				}
 			}

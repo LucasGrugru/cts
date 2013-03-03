@@ -9,7 +9,10 @@ import cts.Graphe;
 import cts.Simulateur;
 import cts.Tache;
 
-
+/**
+ * Classe de test de la simulation
+ *
+ */
 public class TestSimulation {
 
 	private Graphe graphe;

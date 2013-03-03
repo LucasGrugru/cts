@@ -5,9 +5,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * http://github.com/luckyboss1/cts
+ * @author lucky
+ *
+ */
 public class Graphe {
 	
+	/**
+	 * Liste de taches du graphe
+	 */
 	private List<Tache> taches;
+	
+	/**
+	 * Liste des aretes du graphe
+	 */
 	private List<Arete> aretes;
 	
 	public Graphe(List<Tache> taches, List<Arete> aretes) {
