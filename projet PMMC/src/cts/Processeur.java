@@ -35,12 +35,12 @@ public class Processeur implements Comparable<Object> {
 			return -1;
 	}
 
-	public void ordonnancer(Tache t, int debut) {
+	public void ordonnancer(Tache t, int time) {
 		if(t == null)
-			System.out.println("t a ordonnancé null");
+			System.out.println("tache à ordonnancer null");
 		this.file.add(t);
-		t.begin(this.disponibilite + debut);
-		this.disponibilite += t.getTemps();
+		t.begin(this.disponibilite + (time - t.getTemps()));
+		this.disponibilite = time + t.getTemps();
 		t.etat = Etat.ORDONNANCE;
 		t.processeur = this;
 	}

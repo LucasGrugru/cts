@@ -76,9 +76,6 @@ public class Courbe extends JFrame {
 		XYSeries xy = new XYSeries("CTS");
 		XYSeries xy2 = new XYSeries("MAX");
 
-		// Random rn = new Random();
-		// XYPlot plot;
-
 		for (int i = 0; i < 11; i++) {
 			if(i!=0){
 				xy.add((double) i/5., (double) msCTS[i]);

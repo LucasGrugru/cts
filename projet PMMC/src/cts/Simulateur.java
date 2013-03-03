@@ -57,22 +57,25 @@ public class Simulateur {
 		Tache t;
 		Processeur p;
 		int top;
+		int l;
 		while(!alpha.isEmpty()) {
 			t = this.getBestFree(alpha, true);
 			
-			p = getProcesseurMaxDispo(graphe.getPredecesseurs(t));
+			p = getProcesseurMinDispo(graphe.getPredecesseurs(t));
 			top = this.graphe.getTopLevel(t, true);
 			if(top >= p.getDisponibilite()) { //date de disponibilite du processeur des predecesseurs de t
-				p.ordonnancer(t, getLambda(p, t, true));
+				l = getLambda(p, t, true);
+				p.ordonnancer(t, l);
+				System.out.println("Tache "+t.getNum()+" ordonnancé sur p"+processeurs.indexOf(p)+" a t"+l+" jusqu'a t"+(l+t.getTemps()));
+				
 			} else {
 				if(p.getDisponibilite() > getMinDispo().getDisponibilite())
 					p = getMinDispo();
-				
-				p.ordonnancer(t, getLambda(p, t, true));
+				l = getLambda(p, t, true);
+				p.ordonnancer(t, l);
+				System.out.println("Tache "+t.getNum()+" ordonnancé sur p"+processeurs.indexOf(p)+" a t"+l+" jusqu'a t"+(l+t.getTemps()));
 				
 			}
-			
-			
 			
 			S.add(t);
 			for(Tache t1 : this.graphe.getSuccesseurs(t)) {
@@ -104,15 +107,11 @@ public class Simulateur {
 		for(Tache t2 : this.graphe.getPredecesseurs(t)){
 			if(t2.processeur != p){
 				aux = this.graphe.getTopLevel(t2, com)+t2.getTemps();
-				if(com){
-					for(Tache t3 : this.graphe.getSuccesseurs(t2)){
-						if(t3 == t){
-							aux += this.graphe.getCommunication(t2, t);
-						}
-					}
-				}
 				if(aux > tmp){
 					tmp = aux;
+				}
+				if(com){	System.out.println("aux = "+aux);
+					aux += this.graphe.getCommunication(t2, t);
 				}
 			}
 		}
@@ -170,13 +169,13 @@ public class Simulateur {
 	 * @predecesseur  la liste de tache.
 	 * @return le processeur ayant la disponibilite la plus haute.
 	 */
-	private Processeur getProcesseurMaxDispo(List<Tache> predecesseurs) {
+	private Processeur getProcesseurMinDispo(List<Tache> predecesseurs) {
 		int temps = getMaxDispo().getDisponibilite();
 		Processeur pRecherche = getMaxDispo();
 		for(Processeur p : processeurs) {
 			for(Tache t : predecesseurs) {
 				if(p.inList(t)) {
-					if(t.debut + t.getTemps() >= temps) {
+					if(t.debut + t.getTemps() <= temps) {
 						pRecherche = p;
 						temps = t.debut + t.getTemps();
 					}
@@ -203,7 +202,7 @@ public class Simulateur {
 		while(!alpha.isEmpty()) {
 			t = this.getBestFree(alpha, false);
 			
-			p = getProcesseurMaxDispo(graphe.getPredecesseurs(t));
+			p = getProcesseurMinDispo(graphe.getPredecesseurs(t));
 			top = this.graphe.getTopLevel(t, false);
 			if(top >= p.getDisponibilite()) { //date de disponibilite du processeur des predecesseurs de t
 				p.ordonnancer(t, getLambda(p, t, false));
@@ -212,7 +211,6 @@ public class Simulateur {
 					p = getMinDispo();
 				
 				p.ordonnancer(t, getLambda(p, t, false));
-				
 			}
 			
 			

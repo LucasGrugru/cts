@@ -11,8 +11,8 @@ public class Main {
 		Generateur g = null;
 		Simulateur s = new Simulateur(Constantes.NOMBRE_PROC);
 
-		int nbtaches = 40;
-		int nbgraphegran = 20;
+		int nbtaches = 500;
+		int nbgraphegran = 1;
 		double granTab[] = {0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2};
 
 		int[] makespanCTS = new int[granTab.length+1];

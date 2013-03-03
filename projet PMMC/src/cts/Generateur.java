@@ -43,7 +43,6 @@ public class Generateur {
 				a = new Arete(randInteger(tc[0], tc[1]), tacheC, tacheS);
 				if(!this.graphe.existeArete(a.getCourant(), a.getSuccesseur()))
 					this.graphe.ajouteArete(new Arete(randInteger(tc[0], tc[1]), tacheC, tacheS));
-				System.out.println(i+" : TacheC : "+tacheC.getNum()+", TacheS : "+tacheS.getNum());
 			}
 			tachesCrees.add(tacheC);
 			this.graphe.ajouteTache(tacheC);
