@@ -160,7 +160,7 @@ public class Graphe {
 			int temp = 0;
 			for(Tache t : this.getSuccesseurs(tache)) {
 				if(com)
-					temp = tache.getTemps() + this.getBottomLevel(t, com);
+					temp = tache.getTemps() + this.getBottomLevel(t, com) + this.getCommunication(tache, t);
 				else
 					temp = tache.getTemps() + this.getBottomLevel(t, com);
 				if(temp > max) {

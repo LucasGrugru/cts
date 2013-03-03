@@ -12,10 +12,9 @@ public class Main {
 		Simulateur s = new Simulateur(Constantes.NOMBRE_PROC);
 
 		int nbtaches = 40;
-		int nbgraphegran = 10;
+		int nbgraphegran = 20;
 		double granTab[] = {0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2};
 
-		
 		int[] makespanCTS = new int[granTab.length+1];
 		int[] makespanMAX = new int[granTab.length+1];
 
@@ -34,20 +33,17 @@ public class Main {
 				g = new Generateur(nbtaches, granTab[i]); 
 				graphe = g.graphe;
 				s.setGraphe(graphe);
-				
-				//MAKESPAN CTS
+
 				tempCTS += s.simulerCTS();
 
-				//MAKESPAN MAX
 				tempMAX += s.simulerBestCTS();
 
 			}
-			//System.out.println(temp);
 			makespanCTS[i+1] = tempCTS/nbgraphegran;
 			makespanMAX[i+1] = tempMAX/nbgraphegran;
 		}
 
-		Courbe courbe = new Courbe("PMMC - Ordonancement","Stats CTS/OPT",makespanCTS,makespanMAX);
+		Courbe courbe = new Courbe("Statistique d'ordonnancement selon l'algorithme CTS","CTS/MAX",makespanCTS,makespanMAX);
 		courbe.pack();
 		courbe.setVisible(true);
 	}
