@@ -58,10 +58,10 @@ public class Simulateur {
 		Processeur p;
 		int top;
 		while(!alpha.isEmpty()) {
-			t = this.getBestFree(alpha);
+			t = this.getBestFree(alpha, true);
 			
 			p = getProcesseurMaxDispo(graphe.getPredecesseurs(t));
-			top = this.graphe.getTopLevel(t);
+			top = this.graphe.getTopLevel(t, true);
 			if(top >= p.getDisponibilite()) { //date de disponibilite du processeur des predecesseurs de t
 				p.ordonnancer(t, getLambda(p, t, true));
 			} else {
@@ -103,7 +103,7 @@ public class Simulateur {
 		int aux;
 		for(Tache t2 : this.graphe.getPredecesseurs(t)){
 			if(t2.processeur != p){
-				aux = this.graphe.getTopLevel(t2)+t2.getTemps();
+				aux = this.graphe.getTopLevel(t2, com)+t2.getTemps();
 				if(com){
 					for(Tache t3 : this.graphe.getSuccesseurs(t2)){
 						if(t3 == t){
@@ -147,17 +147,18 @@ public class Simulateur {
 	}
 
 	/**
-	 * 
+	 * Calcule la meilleur tache à ordonnancer
 	 * @param alpha une liste de tache
+	 * @param com prise en compte des temps de communication
 	 * @return	la tache ayant la meilleur priorite		
 	 * @throws Exception renvoyé par getPriorité en cas de tache inexistante (generalement mauvaise construction du graphe)
 	 */
-	private Tache getBestFree(List<Tache> alpha) throws Exception{
+	private Tache getBestFree(List<Tache> alpha, boolean com) throws Exception{
 		Tache t2 = null;
 		int temp = 0;
 		for(Tache t1 : alpha){
-			if(this.graphe.getPriorite(t1) >= temp ){
-				temp = this.graphe.getPriorite(t1);
+			if(this.graphe.getPriorite(t1, com) >= temp ){
+				temp = this.graphe.getPriorite(t1, com);
 				t2 = t1;
 			}
 		}
@@ -200,10 +201,10 @@ public class Simulateur {
 		Processeur p;
 		int top;
 		while(!alpha.isEmpty()) {
-			t = this.getBestFree(alpha);
+			t = this.getBestFree(alpha, false);
 			
 			p = getProcesseurMaxDispo(graphe.getPredecesseurs(t));
-			top = this.graphe.getTopLevel(t);
+			top = this.graphe.getTopLevel(t, false);
 			if(top >= p.getDisponibilite()) { //date de disponibilite du processeur des predecesseurs de t
 				p.ordonnancer(t, getLambda(p, t, false));
 			} else {

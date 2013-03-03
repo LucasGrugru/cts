@@ -11,7 +11,7 @@ public class Main {
 		Generateur g = null;
 		Simulateur s = new Simulateur(Constantes.NOMBRE_PROC);
 
-		int nbtaches = 100;
+		int nbtaches = 40;
 		int nbgraphegran = 10;
 		double granTab[] = {0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2};
 

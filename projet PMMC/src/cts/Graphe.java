@@ -62,7 +62,7 @@ public class Graphe {
 	public List<Tache> getEntrees() throws Exception {
 		List<Tache> entrees = new ArrayList<Tache>();	
 		for(Tache t : this.taches)
-			if(this.getTopLevel(t) == 0)
+			if(this.getTopLevel(t, false) == 0)
 				entrees.add(t);
 		return entrees;
 	}
@@ -122,18 +122,21 @@ public class Graphe {
 	/**
 	 * Calcul le toplevel d'une tache
 	 * @param tache la tache
+	 * @param com prise en compte des temps de communication
 	 * @return le toplevel de la tache
 	 * @throws Exception
 	 */
-	public int getTopLevel(Tache tache) throws Exception {
+	public int getTopLevel(Tache tache, boolean com) throws Exception {
 		if(this.getPredecesseurs(tache).isEmpty()) {
 			return 0;
 		} else {
 			int max = 0;
 			int temp = 0;
 			for(Tache t : this.getPredecesseurs(tache)) {
-				System.out.println("Tache "+tache.getNum()+" : predecesseurs tache "+t.getNum());
-				temp = this.getTopLevel(t) + t.getTemps() + this.getCommunication(t, tache);
+				if(com)
+					temp = this.getTopLevel(t, com) + t.getTemps() + this.getCommunication(t, tache);
+				else
+					temp = this.getTopLevel(t, com) + t.getTemps();
 				if(temp > max) {
 					max = temp;
 				}
@@ -145,17 +148,21 @@ public class Graphe {
 	/**
 	 * Calcul le bottomlevel d'une tache
 	 * @param tache la tache
+	 * @param com prise en compte des temps de communication
 	 * @return le bottomlevel
 	 * @throws Exception
 	 */
-	public int getBottomLevel(Tache tache) throws Exception {
+	public int getBottomLevel(Tache tache, boolean com) throws Exception {
 		if(this.getSuccesseurs(tache).isEmpty()) {
 			return tache.getTemps();
 		} else {
 			int max = 0;
 			int temp = 0;
 			for(Tache t : this.getSuccesseurs(tache)) {
-				temp = tache.getTemps() + this.getCommunication(tache, t) + this.getBottomLevel(t);
+				if(com)
+					temp = tache.getTemps() + this.getBottomLevel(t, com);
+				else
+					temp = tache.getTemps() + this.getBottomLevel(t, com);
 				if(temp > max) {
 					max = temp;
 				}
@@ -167,11 +174,12 @@ public class Graphe {
 	/**
 	 * La priorite d'une tache
 	 * @param t la tache
+	 * @param com prise en compte des temps de communication
 	 * @return la priorite
 	 * @throws Exception
 	 */
-	public int getPriorite(Tache t) throws Exception {
-		return this.getBottomLevel(t) + this.getTopLevel(t);
+	public int getPriorite(Tache t, boolean com) throws Exception {
+		return this.getBottomLevel(t, com) + this.getTopLevel(t, com);
 	}
 	
 	/**

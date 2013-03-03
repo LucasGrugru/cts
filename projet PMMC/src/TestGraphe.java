@@ -88,17 +88,17 @@ public class TestGraphe {
 	
 	@Test
 	public void testGetBottomLevel() throws Exception {
-		Assert.assertEquals(10, graphe.getBottomLevel(graphe.getTache(4)));
+		Assert.assertEquals(10, graphe.getBottomLevel(graphe.getTache(4), true));
 	}
 	
 	@Test
 	public void testGetTopLevel() throws Exception {
-		Assert.assertEquals(9, graphe.getTopLevel(graphe.getTache(4)));
+		Assert.assertEquals(9, graphe.getTopLevel(graphe.getTache(4), true));
 	}
 	
 	@Test
 	public void testPriorite() throws Exception {
-		Assert.assertEquals(19, graphe.getPriorite(graphe.getTache(4)));
+		Assert.assertEquals(19, graphe.getPriorite(graphe.getTache(4), true));
 	}
 
 	@Test (expected=Exception.class)
