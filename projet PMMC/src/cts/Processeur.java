@@ -42,6 +42,7 @@ public class Processeur implements Comparable<Object> {
 		t.begin(this.disponibilite + debut);
 		this.disponibilite += t.getTemps();
 		t.etat = Etat.ORDONNANCE;
+		t.processeur = this;
 	}
 	
 

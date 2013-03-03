@@ -23,7 +23,7 @@ public class Courbe extends JFrame {
 	int[] msCTS;
 
 	/** le meilleur makespan. */
-	int[] msIDEAL;
+	int[] msMAX;
 
 	
 	public static int getMaxValue(int[] numbers){  
@@ -40,15 +40,15 @@ public class Courbe extends JFrame {
 	 *
 	 * @param applicationTitle le titre de l'application
 	 * @param chartTitle le titre du graphique
-	 * @param tableau1 le premier tableau (la premiere courbe)
-	 * @param tableau2 le second tableau (la deuxieme courbe)
+	 * @param t1 le premier tableau (la premiere courbe)
+	 * @param t2 le second tableau (la deuxieme courbe)
 	 */
-	public Courbe(String applicationTitle, String chartTitle, int[] tableau1, int[] tableau2) {
+	public Courbe(String applicationTitle, String chartTitle, int[] t1, int[] t2) {
 		super(applicationTitle);
 
-		msCTS = tableau1;
-		msIDEAL = tableau2;
-		double upperRange = getMaxValue(tableau1);
+		msCTS = t1;
+		msMAX = t2;
+		double upperRange = getMaxValue(t1);
 
 		// This will create the dataset 
 		XYSeriesCollection dataset = createDataset();
@@ -74,7 +74,7 @@ public class Courbe extends JFrame {
 
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		XYSeries xy = new XYSeries("CTS");
-		XYSeries xy2 = new XYSeries("OPT");
+		XYSeries xy2 = new XYSeries("MAX");
 
 		// Random rn = new Random();
 		// XYPlot plot;
@@ -82,7 +82,7 @@ public class Courbe extends JFrame {
 		for (int i = 0; i < 11; i++) {
 			if(i!=0){
 				xy.add((double) i/5., (double) msCTS[i]);
-				xy2.add((double) i/5., (double) msIDEAL[i]);
+				xy2.add((double) i/5., (double) msMAX[i]);
 			}
 		}
 		dataset.addSeries(xy);

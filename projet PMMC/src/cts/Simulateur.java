@@ -6,7 +6,13 @@ import java.util.List;
 
 public class Simulateur {
 
+	/**
+	 * Liste des processeurs pour l'ordonnancement
+	 */
 	private List<Processeur> processeurs;
+	/**
+	 * Le graphe de taches à ordonnancer
+	 */
 	private Graphe graphe;
 
 	
@@ -50,17 +56,19 @@ public class Simulateur {
 		List<Tache> preds; //liste temporaire des predecesseurs
 		Tache t;
 		Processeur p;
+		int top;
 		while(!alpha.isEmpty()) {
 			t = this.getBestFree(alpha);
 			
 			p = getProcesseurMaxDispo(graphe.getPredecesseurs(t));
-			
-			if(this.graphe.getTopLevel(t) >= p.getDisponibilite()) { //date de disponibilite du processeur des predecesseurs de t
-				p.ordonnancer(t, 0);
+			top = this.graphe.getTopLevel(t);
+			if(top >= p.getDisponibilite()) { //date de disponibilite du processeur des predecesseurs de t
+				p.ordonnancer(t, getLambda(p, t, true));
 			} else {
 				if(p.getDisponibilite() > getMinDispo().getDisponibilite())
 					p = getMinDispo();
-				p.ordonnancer(t, p.getDisponibilite());
+				
+				p.ordonnancer(t, getLambda(p, t, true));
 				
 			}
 			
@@ -76,27 +84,41 @@ public class Simulateur {
 			alpha.remove(t);
 		}
 		
+		
+		
 		return getMaxDispo().getDisponibilite();
 		
-		//P la liste des processeurs
-		//S = {};U = V ; (*marquer toutes les taches comme non ordonnancees*)
-		//Calculer L+(t) pour chaque tache t et mettre L-(t) a 0 pour chaque tache d'entree t;
-		//Mettre les taches d'entree dans alpha;
-		//while(U!=0) {
-			//t = H(alpha) ; (*selectionner une tache libre critique de alpha *)
-			//if L-(t) >= E(P*) then
-				//Ordonnancer la tache t sur son processeur contraint P*
-			//else
-				//P = H(phi); (*le processeur qui a la date de disponibilite minimale*)
-				//P(t) = P | E(P) = min((Pb), (P*)); (*selection processeur *)
-				//Ordonnancer la tache t sur le processeur choisi P;
-			//end if
-			//Mettre t dans S et mettre a jour les valeurs de priorites des t^aches successeurs de t;
-			//Mettre les taches successeurs libres de t dans alpha;
-			//U = U\(t);
-		//}
 	}
 
+	/**
+	 * Calcule la valeur de lambda
+	 * @param p processeur sur lequel va etre ordonnancé t
+	 * @param t la tache qui va etre ordonnancé sur p
+	 * @param com prise en compte des temps de communication
+	 * @return la valeur de lambda.
+	 * @throws Exception
+	 */
+	private int getLambda(Processeur p, Tache t, boolean com) throws Exception{
+		int tmp = p.getDisponibilite();
+		int aux;
+		for(Tache t2 : this.graphe.getPredecesseurs(t)){
+			if(t2.processeur != p){
+				aux = this.graphe.getTopLevel(t2)+t2.getTemps();
+				if(com){
+					for(Tache t3 : this.graphe.getSuccesseurs(t2)){
+						if(t3 == t){
+							aux += this.graphe.getCommunication(t2, t);
+						}
+					}
+				}
+				if(aux > tmp){
+					tmp = aux;
+				}
+			}
+		}
+		return tmp;
+	}
+	
 	/**
 	 * Met les taches de alpha disponibles pour etre ordonnancees.
 	 * @param alpha
@@ -163,24 +185,32 @@ public class Simulateur {
 		return pRecherche;
 	}
 
+	/**
+	 * Calcule du makespan ideal (avec le maximum de proc et pas de temps de com)
+	 * @return le makespan maximum obtenable
+	 * @throws Exception
+	 */
 	public int simulerBestCTS() throws Exception {
+		initialiser(this.graphe.getTaches().size());
 		List<Tache> alpha = this.graphe.getEntrees();
 		setLibre(alpha);
 		List<Tache> S = new ArrayList<Tache>(); // liste des taches ordonnancees
 		List<Tache> preds; //liste temporaire des predecesseurs
 		Tache t;
 		Processeur p;
+		int top;
 		while(!alpha.isEmpty()) {
 			t = this.getBestFree(alpha);
 			
 			p = getProcesseurMaxDispo(graphe.getPredecesseurs(t));
-			
-			if(this.graphe.getTopLevel(t) >= p.getDisponibilite()) { //date de disponibilite du processeur des predecesseurs de t
-				p.ordonnancer(t, 0);
+			top = this.graphe.getTopLevel(t);
+			if(top >= p.getDisponibilite()) { //date de disponibilite du processeur des predecesseurs de t
+				p.ordonnancer(t, getLambda(p, t, false));
 			} else {
 				if(p.getDisponibilite() > getMinDispo().getDisponibilite())
 					p = getMinDispo();
-				p.ordonnancer(t, p.getDisponibilite());
+				
+				p.ordonnancer(t, getLambda(p, t, false));
 				
 			}
 			
@@ -195,6 +225,8 @@ public class Simulateur {
 			}
 			alpha.remove(t);
 		}
+		
+		
 		
 		return getMaxDispo().getDisponibilite();
 	}

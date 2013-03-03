@@ -11,19 +11,13 @@ public class Main {
 		Generateur g = null;
 		Simulateur s = new Simulateur(Constantes.NOMBRE_PROC);
 
-		int nbr_taches = 500;
-		int nbr_graphe_par_granularite = 20;
+		int nbtaches = 100;
+		int nbgraphegran = 10;
 		double granTab[] = {0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2};
 
 		
 		int[] makespanCTS = new int[granTab.length+1];
 		int[] makespanMAX = new int[granTab.length+1];
-
-		//POUR TEST 
-		/*g = new Graph();
-		System.out.println(g);
-		int make = g.cts(proc, false);
-		System.out.println("Makespan : "+make);*/
 
 		int tempCTS;
 		int tempMAX;
@@ -35,9 +29,9 @@ public class Main {
 			makespanMAX[i+1] = 0;
 			tempCTS = 0;
 			tempMAX = 0;
-			for(int j =0 ; j < nbr_graphe_par_granularite; j++){
+			for(int j =0 ; j < nbgraphegran; j++){
 
-				g = new Generateur(nbr_taches, granTab[i]); 
+				g = new Generateur(nbtaches, granTab[i]); 
 				graphe = g.graphe;
 				s.setGraphe(graphe);
 				
@@ -49,8 +43,8 @@ public class Main {
 
 			}
 			//System.out.println(temp);
-			makespanCTS[i+1] = tempCTS/nbr_graphe_par_granularite;
-			makespanMAX[i+1] = tempMAX/nbr_graphe_par_granularite;
+			makespanCTS[i+1] = tempCTS/nbgraphegran;
+			makespanMAX[i+1] = tempMAX/nbgraphegran;
 		}
 
 		Courbe courbe = new Courbe("PMMC - Ordonancement","Stats CTS/OPT",makespanCTS,makespanMAX);

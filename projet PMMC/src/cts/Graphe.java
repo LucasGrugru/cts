@@ -1,7 +1,9 @@
 package cts;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Graphe {
 	
@@ -29,13 +31,13 @@ public class Graphe {
 	 * @return la liste des tache precedant la tache
 	 */
 	public List<Tache> getPredecesseurs(Tache tacheSuivante) {
-		List<Tache> listPredecesseurs = new ArrayList<Tache>();
+		Set<Tache> listPredecesseurs = new HashSet<Tache>();
 		for(Tache t : this.taches) {
 			if(this.getSuccesseurs(t).contains(tacheSuivante)) {
 				listPredecesseurs.add(t);
 			}
 		}
-		return listPredecesseurs;
+		return new ArrayList<Tache>(listPredecesseurs);
 	}
 	
 	/**
@@ -44,12 +46,12 @@ public class Graphe {
 	 * @return la liste des successeurs
 	 */
 	public List<Tache> getSuccesseurs(Tache t) {
-		List<Tache> taches = new ArrayList<Tache>();
+		Set<Tache> taches = new HashSet<Tache>();
 		for(Arete a : aretes) {
 			if(a.getCourant().equals(t))
 				taches.add(a.getSuccesseur());
 		}
-		return taches;
+		return new ArrayList<Tache>(taches);
 	}
 	
 	/**
@@ -194,4 +196,6 @@ public class Graphe {
 	public void ajouteTache(Tache t) {
 		taches.add(t);
 	}
+	
+	
 }
