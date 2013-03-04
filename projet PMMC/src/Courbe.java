@@ -24,7 +24,6 @@ public class Courbe extends JFrame {
 
 	/** le meilleur makespan. */
 	int[] msMAX;
-
 	
 	public static int getMaxValue(int[] numbers){  
 		int maxValue = numbers[0];  
@@ -110,7 +109,7 @@ public class Courbe extends JFrame {
 		domainAxis.setRange(0.2, 2.0);
 		domainAxis.setTickUnit(new NumberTickUnit(0.2));
 		rangeAxis.setRange(0.0, upperRange);
-		rangeAxis.setTickUnit(new NumberTickUnit(500.0));
+		rangeAxis.setTickUnit(new NumberTickUnit(getMaxValue(msCTS)/5));
 
 		chart.getXYPlot().setRenderer(new XYSplineRenderer());
 

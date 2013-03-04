@@ -79,8 +79,8 @@ public class Generateur {
 	private int[] getIntervalTempsE() {
 		int[] t = new int[2];
 		
-		t[0] =  ((int)(100*this.granularite) - Constantes.intervalTemps);
-		t[1] =  ((int)(100*this.granularite) + Constantes.intervalTemps);
+		t[0] =  ((int)(1000*this.granularite) - Constantes.intervalTemps);
+		t[1] =  ((int)(1000*this.granularite) + Constantes.intervalTemps);
 		
 		return t;
 	}
@@ -92,8 +92,8 @@ public class Generateur {
 	private int[] getIntervalTempsC() {
 		int[] t = new int[2];
 		
-		t[0] =  ((int)100 - Constantes.intervalTemps);
-		t[1] =  ((int)100 + Constantes.intervalTemps);
+		t[0] =  ((int)1000 - Constantes.intervalTemps);
+		t[1] =  ((int)1000 + Constantes.intervalTemps);
 		
 		return t;
 	}

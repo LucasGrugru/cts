@@ -32,12 +32,36 @@ public class Tache {
 	 */
 	public Processeur processeur;
 	
+	/**
+	 * La valeur du bottom level calculé une fois puis stocké ici
+	 */
+	public int bottomLevelCom;
+	
+	/**
+	 * La valeur du top level calculé une fois puis stocké ici
+	 */
+	public int topLevelCom;
+	
+	/**
+	 * La valeur du bottom level calculé sans prise en compte des temps de communication
+	 */
+	public int bottomLevel;
+	
+	/**
+	 * La valeur du top level calculé sans prise en compte des temps de communication
+	 */
+	public int topLevel;
+	
 	public Tache(int temps, int num) { 
 		this.num = num;
 		this.temps = temps;
-		etat = Etat.NON_LIBRE;
+		this.etat = Etat.NON_LIBRE;
 		this.debut = -1;
 		this.processeur = null;
+		this.bottomLevel = -1;
+		this.topLevel = -1;
+		this.bottomLevelCom = -1;
+		this.topLevelCom = -1;
 	}
 	
 	/**

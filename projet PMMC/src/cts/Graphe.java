@@ -139,21 +139,29 @@ public class Graphe {
 	 * @throws Exception
 	 */
 	public int getTopLevel(Tache tache, boolean com) throws Exception {
-		if(this.getPredecesseurs(tache).isEmpty()) {
-			return 0;
-		} else {
-			int max = 0;
-			int temp = 0;
-			for(Tache t : this.getPredecesseurs(tache)) {
-				if(com)
-					temp = this.getTopLevel(t, com) + t.getTemps() + this.getCommunication(t, tache);
-				else
-					temp = this.getTopLevel(t, com) + t.getTemps();
-				if(temp > max) {
-					max = temp;
+		if(tache.topLevel == -1 && !com || tache.topLevelCom == -1 && com) {
+			if(this.getPredecesseurs(tache).isEmpty()) {
+				return 0;
+			} else {
+				int max = 0;
+				int temp = 0;
+				for(Tache t : this.getPredecesseurs(tache)) {
+					if(com)
+						temp = this.getTopLevel(t, com) + t.getTemps() + this.getCommunication(t, tache);
+					else
+						temp = this.getTopLevel(t, com) + t.getTemps();
+					if(temp > max) {
+						max = temp;
+					}
 				}
+				tache.topLevel = max;
+				return max;
 			}
-			return max;
+		} else {
+			if(com)
+				return tache.topLevelCom;
+			else
+				return tache.topLevel;
 		}
 	}
 	
@@ -165,22 +173,30 @@ public class Graphe {
 	 * @throws Exception
 	 */
 	public int getBottomLevel(Tache tache, boolean com) throws Exception {
-		if(this.getSuccesseurs(tache).isEmpty()) {
-			return tache.getTemps();
-		} else {
-			int max = 0;
-			int temp = 0;
-			for(Tache t : this.getSuccesseurs(tache)) {
-				if(com)
-					temp = tache.getTemps() + this.getBottomLevel(t, com) + this.getCommunication(tache, t);
-				else
-					temp = tache.getTemps() + this.getBottomLevel(t, com);
-				if(temp > max) {
-					max = temp;
+		if(tache.bottomLevel == -1 && !com || tache.bottomLevelCom == -1 && com) {
+			if(this.getSuccesseurs(tache).isEmpty()) {
+				return tache.getTemps();
+			} else {
+				int max = 0;
+				int temp = 0;
+				for(Tache t : this.getSuccesseurs(tache)) {
+					if(com)
+						temp = tache.getTemps() + this.getBottomLevel(t, com) + this.getCommunication(tache, t);
+					else
+						temp = tache.getTemps() + this.getBottomLevel(t, com);
+					if(temp > max) {
+						max = temp;
+					}
 				}
-			}
-			return max;
-		}	
+				tache.bottomLevel = max;
+				return max;
+			}	
+		}else {
+			if(com)
+				return tache.bottomLevelCom;
+			else
+				return tache.bottomLevel;
+		}
 	}
 	
 	/**
