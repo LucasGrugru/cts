@@ -9,10 +9,10 @@ public class Main {
 	public static void main(String [] args) throws Exception{ 	
 		Graphe graphe = null;
 		Generateur g = null;
-		Simulateur s = new Simulateur(Constantes.NOMBRE_PROC);
+		Simulateur s = new Simulateur(Constantes.nombre_proc);
 
-		int nbtaches = 10;
-		int nbgraphegran = 500;
+		int nbtaches = Constantes.nb_taches;
+		int nbgraphegran = Constantes.nb_graphe;
 		double granTab[] = {0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2};
 
 		int[] makespanCTS = new int[granTab.length+1];
@@ -43,7 +43,7 @@ public class Main {
 			makespanMAX[i+1] = tempMAX/nbgraphegran;
 		}
 
-		Courbe courbe = new Courbe("Statistique d'ordonnancement selon l'algorithme CTS","CTS/MAX",makespanCTS,makespanMAX);
+		Courbe courbe = new Courbe("Statistique d'ordonnancement selon l'algorithme CTS","CTS/MAX, taches : "+Constantes.nb_taches+", graphes : "+Constantes.nb_graphe,makespanCTS,makespanMAX);
 		courbe.pack();
 		courbe.setVisible(true);
 	}

@@ -21,7 +21,7 @@ public class Graphe {
 	 * Liste des aretes du graphe
 	 */
 	private List<Arete> aretes;
-	
+
 	public Graphe(List<Tache> taches, List<Arete> aretes) {
 		this.taches = taches;
 		this.aretes = aretes;
@@ -30,6 +30,7 @@ public class Graphe {
 	public Graphe(List<Tache> taches) {
 		this.taches = taches;
 		this.aretes = new ArrayList<Arete>();
+		
 	}
 	
 	public Graphe() {
@@ -38,7 +39,7 @@ public class Graphe {
 	}
 
 	/**
-	 * Calcul els predecesseurs d'une tache
+	 * Calcul les predecesseurs d'une tache
 	 * @param tacheSuivante la tache
 	 * @return la liste des tache precedant la tache
 	 */
@@ -163,6 +164,7 @@ public class Graphe {
 			else
 				return tache.topLevel;
 		}
+		
 	}
 	
 	/**
